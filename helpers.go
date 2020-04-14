@@ -2,6 +2,7 @@ package schnorrkel
 
 import (
 	"crypto/rand"
+	"encoding/hex"
 
 	"github.com/gtank/merlin"
 	r255 "github.com/gtank/ristretto255"
@@ -62,4 +63,12 @@ func ScalarFromBytes(b [32]byte) (*r255.Scalar, error) {
 	}
 
 	return s, nil
+}
+
+// NewRistrettoBasepoint returns the basepoint for ristretto255 group
+func NewRistrettoBasepoint() (*r255.Element) {
+	compressedRistrettoBasepoint, _ := hex.DecodeString("e2f2ae0a6abc4e71a884a961c500515f58e30b6aa582dd8db6a65945e08d2d76")
+	B := r255.NewElement()
+	B.Decode(compressedRistrettoBasepoint)
+	return B
 }
